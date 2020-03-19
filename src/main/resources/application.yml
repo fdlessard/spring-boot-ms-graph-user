@@ -2,10 +2,10 @@ server:
   port: 8080
 
 # Personal Azure Active Directory Service
-azure-tenant-id: a805eb36-3833-4902-88c2-5cb74b2cbcbf
+azure-fdl-tenant-id: a805eb36-3833-4902-88c2-5cb74b2cbcbf
 
-azure-ui-login-client-id: b19a6e57-ea73-49f9-9a00-37a76b8781ef
-azure-ui-login-client-secret: 2Mdp73zxsRQ/?wjOmos:zi3qGsT?=d2U
+azure-fdl-ui-login-client-id: b19a6e57-ea73-49f9-9a00-37a76b8781ef
+azure-fdl-ui-login-client-secret: ODnRXZYNEevlu?Ae5eRqw.M0Vvis]9?7
 
 logging:
   level:
@@ -22,15 +22,16 @@ spring:
           ui-login:
             client-name: UI Login
             provider: azure
-            client-id: ${azure-ui-login-client-id}
-            client-secret: ${azure-ui-login-client-secret}
+            client-id: ${azure-fdl-ui-login-client-id}
+            client-secret: ${azure-fdl-ui-login-client-secret}
 ####            client-authentication-method: none
 #            authorization-grant-type: authorization_code
 #            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
-            scope: openid,profile,email
+            scope: openid,profile,email,User.Read
+#            scope: openid,profile,email,api://b19a6e57-ea73-49f9-9a00-37a76b8781ef/fdlessard.Read
         provider:
           azure:
-            issuer-uri: https://login.microsoftonline.com/${azure-tenant-id}/v2.0
+            issuer-uri: https://login.microsoftonline.com/${azure-fdl-tenant-id}/v2.0
           azure-nbc:
             issuer-uri: https://login.microsoftonline.com/${azure-nbc-tenant-id}/v2.0
 ## The following are not needed if you provide issuer-uri
