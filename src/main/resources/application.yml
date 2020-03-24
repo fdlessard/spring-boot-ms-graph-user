@@ -7,6 +7,9 @@ azure-fdl-tenant-id: a805eb36-3833-4902-88c2-5cb74b2cbcbf
 azure-fdl-ui-login-client-id: b19a6e57-ea73-49f9-9a00-37a76b8781ef
 azure-fdl-ui-login-client-secret: ODnRXZYNEevlu?Ae5eRqw.M0Vvis]9?7
 
+azure-fdl-ms-graph-api-client-id: 3374cf56-2250-4efd-ad82-97deb40e80c4
+azure-fdl-ms-graph-api-client-secret: /pmlOF=?]6WBK9I2Riez0Y@.U8LL[:B=
+
 logging:
   level:
     root: DEBUG
@@ -24,10 +27,18 @@ spring:
             provider: azure
             client-id: ${azure-fdl-ui-login-client-id}
             client-secret: ${azure-fdl-ui-login-client-secret}
+            scope: openid,profile,email
+          ms-graph-api:
+            client-name: Ms Graph Api
+            provider: azure
+            authorization-grant-type: client_credentials
+            client-id: ${azure-fdl-ms-graph-api-client-id}
+            client-secret: ${azure-fdl-ms-graph-api-client-secret}
+            redirect-uri: "{baseUrl}/ms-graph-api"
 ####            client-authentication-method: none
 #            authorization-grant-type: authorization_code
 #            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
-            scope: openid,profile,email,User.Read
+            scope: User.Read
 #            scope: openid,profile,email,api://b19a6e57-ea73-49f9-9a00-37a76b8781ef/fdlessard.Read
         provider:
           azure:

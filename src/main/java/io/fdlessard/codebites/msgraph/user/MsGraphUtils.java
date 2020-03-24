@@ -2,6 +2,8 @@ package io.fdlessard.codebites.msgraph.user;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.microsoft.graph.auth.confidentialClient.ClientCredentialProvider;
+import com.microsoft.graph.auth.enums.NationalCloud;
 import com.microsoft.graph.logger.DefaultLogger;
 import com.microsoft.graph.logger.LoggerLevel;
 import com.microsoft.graph.models.extensions.DirectoryObject;
@@ -10,6 +12,7 @@ import com.microsoft.graph.models.extensions.IGraphServiceClient;
 import com.microsoft.graph.models.extensions.User;
 import com.microsoft.graph.requests.extensions.GraphServiceClient;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
@@ -97,9 +100,31 @@ public class MsGraphUtils {
       OAuth2AuthorizedClientService oAuth2AuthorizedClientService, Principal principal) {
 
     OAuth2AuthorizedClient oAuth2AuthorizedClient = oAuth2AuthorizedClientService
-        .loadAuthorizedClient("ui-login", principal.getName());
+        .loadAuthorizedClient("ms-graph-api", principal.getName());
     String accessToken = oAuth2AuthorizedClient.getAccessToken().getTokenValue();
     SimpleAuthProvider authProvider = new SimpleAuthProvider(accessToken);
+
+    // Create default logger to only log errors
+    DefaultLogger logger = new DefaultLogger();
+    logger.setLoggingLevel(LoggerLevel.DEBUG);
+
+    // Build a Graph client
+    return GraphServiceClient.builder()
+        .authenticationProvider(authProvider)
+        .logger(logger)
+        .buildClient();
+  }
+
+  public static IGraphServiceClient buildGraphClientService2(
+      OAuth2AuthorizedClientService oAuth2AuthorizedClientService, Principal principal) {
+
+    ClientCredentialProvider authProvider = new ClientCredentialProvider(
+        "3374cf56-2250-4efd-ad82-97deb40e80c4",
+        Arrays.asList("https://graph.microsoft.com/user.read"),
+        "/pmlOF=?]6WBK9I2Riez0Y@.U8LL[:B=",
+        "a805eb36-3833-4902-88c2-5cb74b2cbcbf",
+        NationalCloud.Global);
+
 
     // Create default logger to only log errors
     DefaultLogger logger = new DefaultLogger();

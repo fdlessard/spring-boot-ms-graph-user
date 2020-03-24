@@ -20,6 +20,10 @@ configurations {
 
 repositories {
     mavenCentral()
+    jcenter()
+    jcenter{
+        url 'http://oss.jfrog.org/artifactory/oss-snapshot-local'
+    }
 }
 
 dependencies {
@@ -39,7 +43,8 @@ dependencies {
 
     implementation 'org.slf4j:slf4j-nop:1.8.0-beta4'
     implementation 'com.microsoft.graph:microsoft-graph:1.7.1'
-//    implementation 'com.microsoft.azure:msal4j:1.4.0'
+    implementation 'com.microsoft.graph:microsoft-graph-auth:0.1.0-SNAPSHOT'
+  //  implementation 'com.microsoft.azure:msal4j:1.4.0'
 
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
 
