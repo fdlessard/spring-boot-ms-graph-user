@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class GroupController {
 
   @Autowired
+
   private OAuth2AuthorizedClientService oAuth2AuthorizedClientService;
 
   @GetMapping("/group")
