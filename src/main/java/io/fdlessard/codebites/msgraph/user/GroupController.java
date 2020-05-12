@@ -25,7 +25,7 @@ public class GroupController {
   private OAuth2AuthorizedClientService oAuth2AuthorizedClientService;
 
   @GetMapping("/group")
-  public Map<String, String> group(Principal principal {
+  public Map<String, String> group(Principal principal) {
 
     log.debug("GroupController.group() - principal: {}", principal);
 
